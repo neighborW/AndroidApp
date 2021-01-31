@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //登录功能
         btnLongin = findViewById(R.id.login_btn);
         btnLongin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent in = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(in);
 
+            }
+        });
+        //注册界面
+        btnRegister  = findViewById(R.id.register_btn);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(in);
             }
         });
 
