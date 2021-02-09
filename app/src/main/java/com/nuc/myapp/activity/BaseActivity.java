@@ -14,19 +14,16 @@ import com.nuc.myapp.util.StringUtil;
 public class BaseActivity extends AppCompatActivity {
 
     private Context mComtext;
-
     @Override
     protected void onCreate(@Nullable Bundle sa){
         super.onCreate(sa);
         mComtext = this;
     }
-
+    //字符串为空
     public void showToast(String str){
-
         Toast.makeText(mComtext,"str",Toast.LENGTH_SHORT).show();
-
     }
-
+    //封装页面跳转
     public void navigateTo(Class activity){
         Intent intent = new Intent(mComtext,activity);
         startActivity(intent);
