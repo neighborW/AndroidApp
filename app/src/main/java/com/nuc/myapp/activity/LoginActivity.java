@@ -1,28 +1,100 @@
 package com.nuc.myapp.activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.EditText;
 import com.nuc.myapp.R;
+import com.nuc.myapp.util.AppConfig;
+import com.nuc.myapp.util.StringUtil;
+import android.content.Intent;
 
-public class LoginActivity extends AppCompatActivity {
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
+public class LoginActivity extends BaseActivity {
 
     private Button btnLogin;
 
-    private Button btnRegister;
+    private EditText etAccount;
+
+    private EditText etPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        btnLogin = findViewById(R.id.login);
+        etAccount = findViewById(R.id.et_account);
+        etPwd = findViewById(R.id.et_pwd);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String account = etAccount.getText().toString().trim();
+                String pwd = etPwd.getText().toString().trim();
+                login(account, pwd);
+            }
+        });
+    }
 
-        btnLogin = findViewById(R.id.login_btn);
-
-
-
+    public void login(String account, String pwd) {
+        if (StringUtil.isEmpty(account)) {
+            showToast("请输入账户");
+            return;
+        }
+        if (StringUtil.isEmpty(pwd)) {
+            showToast("请输入密码");
+            return;
+        }
+        //第一步创建OKHttpClient
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        Map m = new HashMap();
+                m.put("mobile",account);
+                m.put("password",pwd);
+        //将用户名和密码换成json格式
+        JSONObject jsonObject = new JSONObject(m);
+        String jsonStr = jsonObject.toString();
+        RequestBody requestBodyJson =
+                RequestBody.create(MediaType.parse("application/json;charset=utf-8")
+                        , jsonStr);
+        //第三步创建Rquest
+        Request request = new Request.Builder()
+                .url(AppConfig.BASE_URL + "/app/login")
+                .addHeader("contentType", "application/json;charset=UTF-8")
+                .post(requestBodyJson)
+                .build();
+        //第四步创建call回调对象
+        final Call call = client.newCall(request);
+        //第五步发起请求
+                call.enqueue(new
+        Callback() {
+            @Override
+            public void onFailure (Call call, IOException e){
+                Log.e("onFailure", e.getMessage());
+            }
+            @Override
+            public void onResponse (Call call, Response response) throws IOException {
+                final String result = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showToast(result);
+                    }
+                });
+            }
+        });
     }
 }
