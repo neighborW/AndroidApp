@@ -36,7 +36,7 @@ public class RegisterActivity extends BaseActivity {
         params.put("mobile",account);
         params.put("password",pwd);
 
-        Api.config(AppConfig.BASE_URI,params).postRequsr(new TtitCallback() {
+        Api.config(AppConfig.REGISTER,params).postRequsr(new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 runOnUiThread(new Runnable() {

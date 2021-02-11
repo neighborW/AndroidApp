@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.nuc.myapp.R;
 import com.nuc.myapp.api.Api;
+import com.nuc.myapp.api.AppConfig;
 import com.nuc.myapp.api.TtitCallback;
 import com.nuc.myapp.util.StringUtil;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class LoginActivity extends BaseActivity {
         params.put("mobile",account);
         params.put("password",pwd);
 
-        Api.config("app/login",params).postRequsr(new TtitCallback() {
+        Api.config(AppConfig.LOGIN,params).postRequsr(new TtitCallback() {
             //登录成功
             @Override
             public void onSuccess(final String res) {
