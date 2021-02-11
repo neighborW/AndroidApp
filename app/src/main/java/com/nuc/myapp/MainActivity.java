@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.nuc.myapp.activity.BaseActivity;
 import com.nuc.myapp.activity.LoginActivity;
+import com.nuc.myapp.activity.RegisterActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Button btnLongin;
     private Button btnRegister;
@@ -23,10 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnLongin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent in = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(in);
-
+                navigateTo(LoginActivity.class);
             }
         });
         //注册界面
@@ -34,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(in);
+                navigateTo(RegisterActivity.class);
+
             }
         });
 

@@ -1,13 +1,20 @@
 package com.nuc.myapp.activity;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+
+import com.google.gson.Gson;
 import com.nuc.myapp.R;
 import com.nuc.myapp.api.Api;
 import com.nuc.myapp.api.AppConfig;
 import com.nuc.myapp.api.TtitCallback;
+import com.nuc.myapp.entity.LoginRespone;
 import com.nuc.myapp.util.StringUtil;
 import java.util.HashMap;
 
@@ -56,12 +63,21 @@ public class LoginActivity extends BaseActivity {
             //登录成功
             @Override
             public void onSuccess(final String res) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showToast(res);
-                    }
-                });
+                Log.e("onSucess",res);
+                showToastSync(res);
+                Gson gson = new Gson();
+                LoginRespone loginRespone = gson.fromJson(res,LoginRespone.class);
+
+                if (loginRespone.getCode() == 0){
+                    String token = loginRespone.getToken();
+                    saveStringToSp("token",token);//将token保存到本地
+                    navigateTo(HomeActivity.class);
+                    showToastSync("登录成功");
+
+                }
+                else {
+                    showToastSync("登录失败");
+                }
             }
             //登录失败
             @Override

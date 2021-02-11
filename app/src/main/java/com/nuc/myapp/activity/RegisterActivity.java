@@ -3,6 +3,7 @@ package com.nuc.myapp.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.nuc.myapp.R;
 import com.nuc.myapp.api.Api;
@@ -49,7 +50,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void onFailure(Exception e) {
-
+                Log.e("onFailure",e.toString());
             }
         });
     }
