@@ -13,19 +13,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class BaseActivity extends AppCompatActivity {
-
+public abstract class BaseActivity extends AppCompatActivity {
     private Context mComtext;
     @Override
     protected void onCreate(@Nullable Bundle sa){
         super.onCreate(sa);
+        setContentView(initLayout());
         mComtext = this;
+        initLayout();
+        initView();
+        initData();
     }
+    protected abstract int initLayout();
+    protected abstract void initView();
+    protected abstract void initData();
     //字符串为空
     public void showToast(String str){
         Toast.makeText(mComtext,"str",Toast.LENGTH_SHORT).show();
     }
-
     //字符串为空
     public void showToastSync(String str){
         Looper.prepare();
@@ -37,7 +42,6 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent(mComtext,activity);
         startActivity(intent);
     }
-
     protected void saveStringToSp(String key,String values){
         @SuppressLint("WrongConstant")
         //将token保存到本地

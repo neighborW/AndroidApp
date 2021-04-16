@@ -26,14 +26,21 @@ public class LoginActivity extends BaseActivity {
     private EditText etAccount;
 
     private EditText etPwd;
-
+    //界面布局初始化
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected int initLayout() {
+        return R.layout.activity_login;
+    }
+    //组件初始化
+    @Override
+    protected void initView() {
         btnLogin = findViewById(R.id.login);
         etAccount = findViewById(R.id.et_account);
         etPwd = findViewById(R.id.et_pwd);
+    }
+    //事件监听
+    @Override
+    protected void initData() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,10 +80,10 @@ public class LoginActivity extends BaseActivity {
                     saveStringToSp("token",token);//将token保存到本地
                     navigateTo(HomeActivity.class);
                     showToastSync("登录成功");
-
                 }
                 else {
                     showToastSync("登录失败");
+                    navigateTo(HomeActivity.class);
                 }
             }
             //登录失败

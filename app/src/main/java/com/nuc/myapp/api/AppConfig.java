@@ -1,7 +1,7 @@
 package com.nuc.myapp.api;
 
 public class AppConfig {
-    public static final String BASE_URI = "http://192.168.31.32:8080/renren-fast";
+    public static final String BASE_URI = "http://47.112.180.188:8080/renren-fast";
 
     public static final String LOGIN = "/app/login"; //登录
     public static final String REGISTER = "/app/register";//注册

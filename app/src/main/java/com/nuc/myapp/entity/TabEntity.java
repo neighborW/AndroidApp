@@ -17,12 +17,10 @@ public class TabEntity implements CustomTabEntity {
     public String getTabTitle() {
         return title;
     }
-
     @Override
     public int getTabSelectedIcon() {
         return selectedIcon;
     }
-
     @Override
     public int getTabUnselectedIcon() {
         return unSelectedIcon;
